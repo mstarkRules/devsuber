@@ -13,6 +13,6 @@ export default createAppContainer(createStackNavigator({
 },{
     initialRouteName:'Preload',
     defaultNavigationOptions:{
-        header: null
+        headerShown: false
     }
 }));
