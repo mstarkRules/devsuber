@@ -1,7 +1,13 @@
 import React from 'react';
-import { Text } from 'react-native';
 
-import { Container, Header, HeaderTitle } from './styled';
+import {
+   Container, 
+   Header, 
+   HeaderTitle,
+   Menu,
+   MenuItem,
+   MenuItemText
+  } from './styled';
 
 const Page = ()=>{
     return (
@@ -9,6 +15,14 @@ const Page = ()=>{
         <Header>
           <HeaderTitle>DevsUber</HeaderTitle>
         </Header>
+        <Menu>
+          <MenuItem>
+            <MenuItemText>Login</MenuItemText>
+          </MenuItem>
+          <MenuItem>
+            <MenuItemText>Cadastrar</MenuItemText>
+          </MenuItem>
+        </Menu>
       </Container>
     );
   }
