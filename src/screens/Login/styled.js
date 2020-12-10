@@ -20,10 +20,16 @@ export const HeaderTitle = styled.Text`
 export const Menu = styled.View`
     background-color:#3574CB;
     flex-direction: row;
+    padding-left: 20px;
 `;
 
 export const MenuItem = styled.TouchableHighlight`
-    margin: 20px;
+    padding: 20px;
+    border-bottom-width: 5px;
+    border-bottom-color:${props=> props.active?'#FFF':'#3574CB'};
 `;
 
-export const MenuItemText = styled.Text``;
+export const MenuItemText = styled.Text`
+    color:#FFF;
+    font-size: 16px;
+`;

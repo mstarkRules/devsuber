@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {
    Container, 
@@ -9,17 +9,21 @@ import {
    MenuItemText
   } from './styled';
 
-const Page = ()=>{
+const Page = ()=> {
+
+    const [activeMenu, setActiveMenu] = useState('signup');
+
+
     return (
       <Container>
         <Header>
           <HeaderTitle>DevsUber</HeaderTitle>
         </Header>
         <Menu>
-          <MenuItem>
+          <MenuItem active={activeMenu =='signin'} onPress={()=>setActiveMenu('signin')} underlayColor='transparent'>
             <MenuItemText>Login</MenuItemText>
           </MenuItem>
-          <MenuItem>
+          <MenuItem active={activeMenu == 'signup'} onPress={()=>setActiveMenu('signup')} underlayColor='transparent'>
             <MenuItemText>Cadastrar</MenuItemText>
           </MenuItem>
         </Menu>
