@@ -16,7 +16,9 @@ import {
 const Page = ()=> {
 
     const [activeMenu, setActiveMenu] = useState('signup');
-
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     return (
       <Container behavior={Platform.OS === 'ios'?'padding':null}>
@@ -34,12 +36,12 @@ const Page = ()=> {
           </MenuItem>
         </Menu>
         {activeMenu == 'signup' &&
-          <Input placeholder='Nome' value='Marcos Amorim'/>
+          <Input value={name} onChangeText={t=>setName(t)} placeholder='Nome' placeholderTextColor='#999'/>
         }
 
-        <Input placeholder='Email'/>
+        <Input value={email} onChangeText={t=>setEmail(t)} keyboardType="email-address" placeholder='Email' autoCapitalize='none' placeholderTextColor='#999'/>
 
-        <Input placeholder='Senha' />
+        <Input value={password} onChangeText={t=>setPassword(t)} placeholder='Senha' placeholderTextColor='#999'/>
         {activeMenu == 'signin' &&
           <ActionButton>
             <ActionButtonText>Login</ActionButtonText>
