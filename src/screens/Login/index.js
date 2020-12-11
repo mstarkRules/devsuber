@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { StatusBar, Platform } from 'react-native';
 
 import {
    Container, 
@@ -6,7 +7,10 @@ import {
    HeaderTitle,
    Menu,
    MenuItem,
-   MenuItemText
+   MenuItemText,
+   Input,
+   ActionButton,
+   ActionButtonText
   } from './styled';
 
 const Page = ()=> {
@@ -15,7 +19,9 @@ const Page = ()=> {
 
 
     return (
-      <Container>
+      <Container behavior={Platform.OS === 'ios'?'padding':null}>
+
+        <StatusBar barStyle="light-content"/>
         <Header>
           <HeaderTitle>DevsUber</HeaderTitle>
         </Header>
@@ -27,6 +33,24 @@ const Page = ()=> {
             <MenuItemText>Cadastrar</MenuItemText>
           </MenuItem>
         </Menu>
+        {activeMenu == 'signup' &&
+          <Input placeholder='Nome' value='Marcos Amorim'/>
+        }
+
+        <Input placeholder='Email'/>
+
+        <Input placeholder='Senha' />
+        {activeMenu == 'signin' &&
+          <ActionButton>
+            <ActionButtonText>Login</ActionButtonText>
+          </ActionButton>
+        }
+        {activeMenu == 'signup' &&
+          <ActionButton>
+            <ActionButtonText>Cadastrar</ActionButtonText>
+          </ActionButton>
+        }
+        
       </Container>
     );
   }
