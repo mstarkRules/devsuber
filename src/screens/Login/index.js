@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { StatusBar, Platform } from 'react-native';
 
+import useDevsUberApi from '../../useDevsUberApi';
+
 import {
    Container, 
    Header, 
@@ -15,10 +17,13 @@ import {
 
 const Page = ()=> {
 
+    const api = useDevsUberApi();
+
     const [activeMenu, setActiveMenu] = useState('signup');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
 
     return (
       <Container behavior={Platform.OS === 'ios'?'padding':null}>
