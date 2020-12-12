@@ -15,7 +15,7 @@ export default ()=>({
         });
     },
 
-    signup:(nome, email, password)=>{
+    signup:(name, email, password)=>{
         return new Promise((resolve, reject)=>{
 
             setTimeout(()=>{
