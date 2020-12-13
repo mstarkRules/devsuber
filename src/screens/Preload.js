@@ -17,7 +17,7 @@ const Preload = (props) => {
         props.navigation.dispatch(StackActions.reset({
             index:0,
             actions:[
-                NavigationActions.navigate({routeName: 'HomeStack'})
+                NavigationActions.navigate({routeName: 'Login'})
             ]
         }));
     }

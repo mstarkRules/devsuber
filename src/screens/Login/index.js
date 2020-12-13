@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StatusBar, Platform, Text } from 'react-native';
+import { StatusBar, Platform, Text, ActivityIndicator } from 'react-native';
 
 import {StackActions, NavigationActions} from 'react-navigation';
 import {connect } from 'react-redux';
@@ -16,7 +16,8 @@ import {
    MenuItemText,
    Input,
    ActionButton,
-   ActionButtonText
+   ActionButtonText,
+   LoadingArea
   } from './styled';
 
 const Page = (props)=> {
@@ -28,10 +29,15 @@ const Page = (props)=> {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     //const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSignin = async ()=>{
       if(email && password){
+        setLoading(true);
         const res = await api.signin(email, password);
+        setLoading(false);
+
+        
 
       //  console.log(res);
 
@@ -40,8 +46,8 @@ const Page = (props)=> {
         } else{
           // guardar o token no reducer
           props.setToken(res.token);
-          //redirecionar para o home
 
+          //redirecionar para o home
           props.navigation.dispatch(StackActions.reset({
               index:0,
               actions:[
@@ -55,8 +61,9 @@ const Page = (props)=> {
 
     const handleSignup = async ()=>{
       if(name && email && password){
+        setLoading(true);
         const res = await api.signup(name, email, password);
-
+        setLoading(false);
       //  console.log(res);
 
         if(res.error){
@@ -92,23 +99,29 @@ const Page = (props)=> {
           </MenuItem>
         </Menu>
         {activeMenu == 'signup' &&
-          <Input value={name} onChangeText={t=>setName(t)} placeholder='Nome' placeholderTextColor='#999'/>
+          <Input editable={!loading} value={name} onChangeText={t=>setName(t)} placeholder='Nome' placeholderTextColor='#999'/>
         }
 
-        <Input value={email} onChangeText={t=>setEmail(t)} keyboardType="email-address" placeholder='Email' autoCapitalize='none' placeholderTextColor='#999'/>
+        <Input editable={!loading} value={email} onChangeText={t=>setEmail(t)} keyboardType="email-address" placeholder='Email' autoCapitalize='none' placeholderTextColor='#999'/>
 
-        <Input value={password} onChangeText={t=>setPassword(t)} placeholder='Senha' placeholderTextColor='#999'secureTextEntry={true}/>
+        <Input editable={!loading} value={password} onChangeText={t=>setPassword(t)} placeholder='Senha' placeholderTextColor='#999'secureTextEntry={true}/>
         {activeMenu == 'signin' &&
-          <ActionButton onPress={handleSignin}>
+          <ActionButton disabled={loading} onPress={handleSignin}>
             <ActionButtonText>Login</ActionButtonText>
           </ActionButton>
         }
         {activeMenu == 'signup' &&
-          <ActionButton onPress={handleSignup}>
+          <ActionButton disabled={loading} onPress={handleSignup}>
             <ActionButtonText>Cadastrar</ActionButtonText>
           </ActionButton>
         }
-        <Text>Token:{props.token}</Text>
+  
+        {loading &&
+          <LoadingArea>
+            <ActivityIndicator size="large" color="#FFF"/>
+        </LoadingArea>
+        }
+
       </Container>
     );
   }
