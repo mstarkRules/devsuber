@@ -1,6 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import { StatusBar, SafeAreaView, Text } from 'react-native';
 import MapView from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
+import Geocoder from 'react-native-geocoding';
+import {MapsAPI} from '../../config';
+
 
 import { 
     Container
@@ -20,6 +24,43 @@ const Page = ()=>{
         altitude:0,
         heading:0
     });
+
+    const [fromLoc, setFromLoc] = useState({});
+    const [toLoc, setToLoc] = useState({});
+
+    useEffect(()=>{
+        Geocoder.init(MapsAPI, {language:'pt-br'});
+        getMyCurrentPosition();
+    },[]);
+
+    const getMyCurrentPosition = ()=>{
+        Geolocation.getCurrentPosition(async (info)=>{
+         //   console.log("COORDENADAS: ", info.coords);
+
+            const geo = await Geocoder.from(info.coords.latitude, info.coords.longitude);
+
+            if(geo.results.length > 0){
+                const loc = {
+                    name:geo.results[0].formatted_address,
+                    center:{
+                        latitude: info.coords.latitude,
+                        longitude: info.coords.longitude
+                    },
+                    zoom: 16,
+                    pitch:0,
+                    altitude:0,
+                    heading:0
+                    };
+
+                    setMapLoc(loc);
+                    setFromLoc(loc);
+                    
+                }
+
+        },(error)=>{
+
+        });
+    }
 
     return(
         <Container>
