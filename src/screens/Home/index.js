@@ -7,7 +7,14 @@ import {MapsAPI} from '../../config';
 
 
 import { 
-    Container
+    Container,
+    IntineraryArea,
+    IntineraryItem,
+    IntineraryLabel,
+    IntineraryPoint,
+    IntineraryTitle,
+    IntineraryValue
+
 } from './styled';
 
 const Page = ()=>{
@@ -73,6 +80,28 @@ const Page = ()=>{
             >
 
             </MapView>
+            <IntineraryArea>
+                <IntineraryItem>
+                    <>
+                        <IntineraryLabel>
+                            <IntineraryPoint/>
+                            <IntineraryTitle>Origem</IntineraryTitle>
+
+                        </IntineraryLabel>
+                        <IntineraryValue>...</IntineraryValue>
+                    </>
+                </IntineraryItem>
+                <IntineraryItem>
+                    <>
+                        <IntineraryLabel>
+                            <IntineraryPoint/>
+                            <IntineraryTitle>Destino</IntineraryTitle>
+
+                        </IntineraryLabel>
+                        <IntineraryValue>...</IntineraryValue>
+                    </>
+                </IntineraryItem>
+            </IntineraryArea>
         </Container>
     );
 }
