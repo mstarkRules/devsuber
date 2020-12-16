@@ -13,7 +13,8 @@ import {
     IntineraryLabel,
     IntineraryPoint,
     IntineraryTitle,
-    IntineraryValue
+    IntineraryValue,
+    IntineraryPlaceholder
 
 } from './styled';
 
@@ -84,21 +85,34 @@ const Page = ()=>{
                 <IntineraryItem>
                     <>
                         <IntineraryLabel>
-                            <IntineraryPoint/>
+                            <IntineraryPoint color="#0000FF"/>
                             <IntineraryTitle>Origem</IntineraryTitle>
 
                         </IntineraryLabel>
-                        <IntineraryValue>...</IntineraryValue>
+                        {fromLoc.name &&
+                            <IntineraryValue>{fromLoc.name}</IntineraryValue>
+                        }
+                        {!fromLoc.name &&
+                            <IntineraryPlaceholder>Escolha um local de Origem</IntineraryPlaceholder>
+                        }
+                        
                     </>
                 </IntineraryItem>
                 <IntineraryItem>
                     <>
                         <IntineraryLabel>
-                            <IntineraryPoint/>
+                            <IntineraryPoint color="#00FF00"/>
                             <IntineraryTitle>Destino</IntineraryTitle>
 
                         </IntineraryLabel>
-                        <IntineraryValue>...</IntineraryValue>
+                        {fromLoc.name &&
+                            <IntineraryValue>{fromLoc.name}</IntineraryValue>
+                        }
+                        
+                        {!fromLoc.name &&
+                            <IntineraryPlaceholder>Escolha um local de destino</IntineraryPlaceholder>
+                        }
+                        
                     </>
                 </IntineraryItem>
             </IntineraryArea>
