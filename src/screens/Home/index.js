@@ -35,11 +35,18 @@ const Page = ()=>{
 
     const [fromLoc, setFromLoc] = useState({});
     const [toLoc, setToLoc] = useState({});
+    const [showDirections, setShowDirections] = useState(false);
 
     useEffect(()=>{
         Geocoder.init(MapsAPI, {language:'pt-br'});
         getMyCurrentPosition();
     },[]);
+
+    useEffect(()=>{
+        if(fromLoc.center && toLoc.center){
+            setShowDirections(true);
+        }
+    },[toLoc]);
 
     const getMyCurrentPosition = ()=>{
         Geolocation.getCurrentPosition(async (info)=>{
@@ -70,6 +77,29 @@ const Page = ()=>{
         });
     }
 
+    const handleFromClick =()=>{
+
+    }
+
+    const handleToClick=async ()=>{
+        const geo = await Geocoder.from('Centro, Santarém, PA');
+        if(geo.results.length >0){
+            const loc = {
+                name:geo.results[0].formatted_address,
+                center:{
+                    latitude: geo.results[0].geometry.location.lat,
+                    longitude: geo.results[0].geometry.location.lng
+                },
+                zoom: 16,
+                pitch:0,
+                altitude:0,
+                heading:0
+                };
+
+                setToLoc(loc);
+        }
+    }
+
     return(
         <Container>
             <StatusBar barStyle="dark-content"/>
@@ -80,9 +110,21 @@ const Page = ()=>{
                 camera={mapLoc}
             >
 
+                {fromLoc.center &&
+                    <MapView.Marker pincolor="black" coordinate={fromLoc.center}/>
+                }
+
+                {toLoc.center &&
+                    <MapView.Marker pincolor="black" coordinate={toLoc.center}/>
+                }
+
+                {showDirections &&
+                    <></>
+                }
+
             </MapView>
-            <IntineraryArea>
-                <IntineraryItem>
+            <IntineraryArea >
+                <IntineraryItem onPress={handleFromClick} underlayColor="#EEE">
                     <>
                         <IntineraryLabel>
                             <IntineraryPoint color="#0000FF"/>
@@ -98,18 +140,18 @@ const Page = ()=>{
                         
                     </>
                 </IntineraryItem>
-                <IntineraryItem>
+                <IntineraryItem onPress={handleToClick} underlayColor="#EEE">
                     <>
                         <IntineraryLabel>
                             <IntineraryPoint color="#00FF00"/>
                             <IntineraryTitle>Destino</IntineraryTitle>
 
                         </IntineraryLabel>
-                        {fromLoc.name &&
-                            <IntineraryValue>{fromLoc.name}</IntineraryValue>
+                        {toLoc.name &&
+                            <IntineraryValue>{toLoc.name}</IntineraryValue>
                         }
                         
-                        {!fromLoc.name &&
+                        {!toLoc.name &&
                             <IntineraryPlaceholder>Escolha um local de destino</IntineraryPlaceholder>
                         }
                         
