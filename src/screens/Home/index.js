@@ -3,6 +3,7 @@ import { StatusBar, SafeAreaView, Text } from 'react-native';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
+import MapViewDirections from 'react-native-maps-directions';
 import {MapsAPI} from '../../config';
 
 
@@ -98,6 +99,20 @@ const Page = ()=>{
 
                 setToLoc(loc);
         }
+
+    }
+
+    const handleDirectionsReady = (r)=>{
+        console.log("RES: ", r)
+
+        map.current.fitToCoordinates(r.coordinates,{
+            edgePadding:{
+                left:50,
+                right:50,
+                bottom:50,
+                top:500
+            }
+        });
     }
 
     return(
@@ -119,7 +134,14 @@ const Page = ()=>{
                 }
 
                 {showDirections &&
-                    <></>
+                    <MapViewDirections
+                        origin={fromLoc.center}
+                        destination={toLoc.center}
+                        strokeWidth={5}
+                        strokeColor="#BBB"
+                        apikey={MapsAPI}
+                        onReady={handleDirectionsReady}
+                    />
                 }
 
             </MapView>
