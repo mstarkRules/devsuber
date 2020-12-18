@@ -110,7 +110,7 @@ const Page = ()=>{
                 left:50,
                 right:50,
                 bottom:50,
-                top:500
+                top:700
             }
         });
     }
