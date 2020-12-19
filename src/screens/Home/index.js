@@ -99,7 +99,7 @@ const Page = ()=>{
     }
 
     const handleToClick=async ()=>{
-        const geo = await Geocoder.from('Interventoria, Santarém, PA');
+        const geo = await Geocoder.from('alter do chao, Santarém, PA');
         if(geo.results.length >0){
             const loc = {
                 name:geo.results[0].formatted_address,
@@ -134,9 +134,29 @@ const Page = ()=>{
                 left:50,
                 right:50,
                 bottom:50,
-                top:800
+                top:750
             }
         });
+    }
+
+    const handleRequestGo = () =>{
+
+    }
+
+    const handleRequestCancel =()=>{
+        setToLoc({});
+        setShowDirections(false);
+        setRequestDistance(0);
+        setRequestPrice(0);
+
+        setMapLoc(fromLoc);
+    }
+
+    const handleMapChange = async ()=>{
+        const cam = await map.current.getCamera();
+        cam.altitude = 0;
+        setMapLoc(cam);
+        
     }
 
     return(
@@ -147,6 +167,7 @@ const Page = ()=>{
                 style={{flex:1}}
                 provider="google"
                 camera={mapLoc}
+                onRegionChangeComplete={handleMapChange}
             >
 
                 {fromLoc.center &&
@@ -221,10 +242,10 @@ const Page = ()=>{
                                 </RequestDetail>
                             </RequestDetails>
                             <RequestButtons>
-                                <RequestButton color='#00FF00'>
+                                <RequestButton color='#00FF00' onPress={handleRequestGo}>
                                     <RequestButtonText>Solicitar Motorista</RequestButtonText>
                                 </RequestButton>
-                                <RequestButton color='#FF0000'>
+                                <RequestButton color='#FF0000' onPress={handleRequestCancel}>
                                     <RequestButtonText>Cancelar</RequestButtonText>
                                 </RequestButton>
                             </RequestButtons>
