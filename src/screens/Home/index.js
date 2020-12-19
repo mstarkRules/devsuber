@@ -8,6 +8,7 @@ import {MapsAPI} from '../../config';
 
 
 import useDevsUberApi from '../../useDevsUberApi';
+import AddressModal from '../../components/AdressModal';
 
 import { 
     Container,
@@ -53,7 +54,8 @@ const Page = ()=>{
     const [requestDistance, setRequestDistance] = useState(0);
     const [requestTime, setRequestTime] = useState(0);
     const [requestPrice, setRequestPrice] = useState(0);
-
+    const [modalTitle, setModalTitle] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
     useEffect(()=>{
         Geocoder.init(MapsAPI, {language:'pt-br'});
         getMyCurrentPosition();
@@ -95,7 +97,8 @@ const Page = ()=>{
     }
 
     const handleFromClick =()=>{
-
+        setModalTitle('Escolha uma origem');
+        setModalVisible(true);
     }
 
     const handleToClick=async ()=>{
@@ -162,6 +165,13 @@ const Page = ()=>{
     return(
         <Container>
             <StatusBar barStyle="dark-content"/>
+            <AddressModal
+                title={modalTitle}
+                visible={modalVisible}
+                visibleAction={setModalVisible}
+
+            />
+
             <MapView 
                 ref={map}
                 style={{flex:1}}
