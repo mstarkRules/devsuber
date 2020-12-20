@@ -52,7 +52,7 @@ const ModalResultText = styled.Text`
     font-size:16px;
 `;
 
-
+let timer;
 
 export default (props)=>{
 
@@ -64,19 +64,53 @@ export default (props)=>{
     },[]);
 
     useEffect(()=>{
-        if(searchText){
-            //fazer a pesquisa
+        if(searchText.length >0){
+            //fazer a pesquisa...
+            if(timer){
+                clearTimeout(timer);
+
+            }
+            timer = setTimeout(async ()=>{
+
+                console.log("Fazendo pesquisa");
+                
+                const geo = await Geocoder.from(searchText);
+                console.log("resultado: ", geo.results.length);
+                
+
+                if(geo.results.length > 0){
+                    let tmpResults = [];
+                    //console.log("tipo de dado tmp: ", tmpResults );
+                    
+                    for (let i in geo.results){
+                        tmpResults.push({
+                            address:geo.results[i].formatted_address,
+                            latitude: geo.results[i].geometry.location.lat,
+                            longitude: geo.results[i].geometry.location.lng
+                        });
+                    }
+                    setResults(tmpResults);
+                    console.log("res: ",tmpResults);
+                    console.log("search: ", searchText);
+                } 
+            }, 1000);
         }
     }, [searchText]);
 
     const handleCloseAction = ()=>{
         props.visibleAction(false);
     }
+
+    const handleClose = () =>{
+        setResults([]);
+        setSearchText('');
+    }
     return (
         <Modal
             animationType="slide"
             transparent={false}
             visible={props.visible}
+            onShow={handleClose}
         >
             <ModalArea>
                 <ModalHeader>
@@ -87,11 +121,11 @@ export default (props)=>{
                 </ModalHeader>
                 <ModalResults>
 
-                    {results.map((i, k)=>{
+                    {results.map((i, k)=>(
                         <ModalResult key={k}>
-                        <ModalResultText>i.adress</ModalResultText>
-                    </ModalResult>
-                    })}
+                         <ModalResultText>{i.address}</ModalResultText>
+                        </ModalResult>
+                    ))}
                 </ModalResults>
             </ModalArea>
 
