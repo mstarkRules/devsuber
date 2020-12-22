@@ -56,6 +56,9 @@ const Page = ()=>{
     const [requestPrice, setRequestPrice] = useState(0);
     const [modalTitle, setModalTitle] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalField, setModalField] = useState('');
+
+
     useEffect(()=>{
         Geocoder.init(MapsAPI, {language:'pt-br'});
         getMyCurrentPosition();
@@ -66,6 +69,12 @@ const Page = ()=>{
             setShowDirections(true);
         }
     },[toLoc]);
+
+    useEffect (()=>{
+        if(fromLoc.center){
+            setMapLoc(fromLoc);
+        }
+    },[fromLoc]);
 
     const getMyCurrentPosition = ()=>{
         Geolocation.getCurrentPosition(async (info)=>{
@@ -98,26 +107,18 @@ const Page = ()=>{
 
     const handleFromClick =()=>{
         setModalTitle('Escolha uma origem');
+        setModalField('from');
         setModalVisible(true);
     }
 
     const handleToClick=async ()=>{
-        const geo = await Geocoder.from('alter do chao, Santarém, PA');
-        if(geo.results.length >0){
-            const loc = {
-                name:geo.results[0].formatted_address,
-                center:{
-                    latitude: geo.results[0].geometry.location.lat,
-                    longitude: geo.results[0].geometry.location.lng
-                },
-                zoom: 16,
-                pitch:0,
-                altitude:0,
-                heading:0
-                };
+        setModalTitle('Escolha um destino');
+        setModalField('to');
+        setModalVisible(true);
 
-                setToLoc(loc);
-        }
+        /*
+        
+        */
 
     }
 
@@ -136,8 +137,8 @@ const Page = ()=>{
             edgePadding:{
                 left:50,
                 right:50,
-                bottom:50,
-                top:750
+                bottom:20,
+                top:1100
             }
         });
     }
@@ -162,6 +163,32 @@ const Page = ()=>{
         
     }
 
+    const handleModalClick = (field, item)=>{
+        console.log("field", field);
+        console.log("address: ", item);
+
+        const loc = {
+            name:item.address,
+            center:{
+                latitude: item.latitude,
+                longitude: item.longitude
+            },
+            zoom: 16,
+            pitch:0,
+            altitude:0,
+            heading:0
+            };
+
+        switch(field){
+            case 'from':
+                setFromLoc(loc);
+                break;
+            case 'to':
+                setToLoc(loc);
+                break;
+        }
+    }
+
     return(
         <Container>
             <StatusBar barStyle="dark-content"/>
@@ -169,7 +196,8 @@ const Page = ()=>{
                 title={modalTitle}
                 visible={modalVisible}
                 visibleAction={setModalVisible}
-
+                field={modalField}
+                clickAction={handleModalClick}
             />
 
             <MapView 

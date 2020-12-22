@@ -105,6 +105,12 @@ export default (props)=>{
         setResults([]);
         setSearchText('');
     }
+
+    const handleResultClick = (item)=>{
+        props.clickAction(props.field, item);
+        props.visibleAction(false);
+    }
+
     return (
         <Modal
             animationType="slide"
@@ -122,7 +128,7 @@ export default (props)=>{
                 <ModalResults>
 
                     {results.map((i, k)=>(
-                        <ModalResult key={k}>
+                        <ModalResult key={k} onPress={()=>handleResultClick(i)}>
                          <ModalResultText>{i.address}</ModalResultText>
                         </ModalResult>
                     ))}
