@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect} from 'react';
-import { StatusBar, SafeAreaView, Text } from 'react-native';
+import { StatusBar, SafeAreaView, Text, ActivityIndicator } from 'react-native';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
@@ -28,7 +28,8 @@ import {
     requestTime,
     RequestButtons,
     RequestButton,
-    RequestButtonText
+    RequestButtonText,
+    LoadingArea
 
 } from './styled';
 
@@ -57,7 +58,7 @@ const Page = ()=>{
     const [modalTitle, setModalTitle] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [modalField, setModalField] = useState('');
-
+    const [loading, setLoading] = useState(false);
 
     useEffect(()=>{
         Geocoder.init(MapsAPI, {language:'pt-br'});
@@ -89,7 +90,7 @@ const Page = ()=>{
                         latitude: info.coords.latitude,
                         longitude: info.coords.longitude
                     },
-                    zoom: 16,
+                    zoom:16,
                     pitch:0,
                     altitude:0,
                     heading:0
@@ -143,8 +144,23 @@ const Page = ()=>{
         });
     }
 
-    const handleRequestGo = () =>{
+    const handleRequestGo = async() =>{
+        setLoading(true);
+        const driver = await api.findDriver({
+            fromLat: fromLoc.center.latitude,
+            fromLng: fromLoc.center.longitude,
+            toLat: toLoc.center.latitude,
+            toLng: toLoc.center.longitude
+        });
+        setLoading(false);
 
+        if(!driver.error){
+            //achou motorista
+            console.log(driver);
+            alert(driver.name);
+        } else{
+            alert(driver.error);
+        }
     }
 
     const handleRequestCancel =()=>{
@@ -292,6 +308,10 @@ const Page = ()=>{
                 }
                 
             </IntineraryArea>
+            {loading &&
+                <LoadingArea>
+                    <ActivityIndicator size="large" color="#FFF" />
+                </LoadingArea>}
         </Container>
     );
 }

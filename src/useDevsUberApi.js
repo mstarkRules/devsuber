@@ -48,7 +48,32 @@ export default ()=>({
                 resolve(json);
             },1000);
         });
+    },
+
+    findDriver:(options)=>{
+       return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            let json = {
+                error:''
+            };
+
+            json.driver = {
+                id:'1234',
+                name: 'Tony Rogers',
+                stars: 4,
+                carName: 'Honda Civic',
+                carColor:'Branco',
+                carPlate:'AAA-0101'
+            };
+
+            json.error = 'Nenhum motorista encontrado';
+
+            resolve(json);
+        }, 3000);
+       }); 
     }
+
+
 
 });
 
