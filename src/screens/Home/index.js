@@ -9,6 +9,7 @@ import {MapsAPI} from '../../config';
 
 import useDevsUberApi from '../../useDevsUberApi';
 import AddressModal from '../../components/AdressModal';
+import DriverModal from '../../components/DriverModal';
 
 import { 
     Container,
@@ -59,6 +60,9 @@ const Page = ()=>{
     const [modalVisible, setModalVisible] = useState(false);
     const [modalField, setModalField] = useState('');
     const [loading, setLoading] = useState(false);
+    const [driverInfo, setDriverInfo] = useState({});
+    const [driverModalVisible, setDriverModalVisible] = useState(false);
+
 
     useEffect(()=>{
         Geocoder.init(MapsAPI, {language:'pt-br'});
@@ -156,10 +160,15 @@ const Page = ()=>{
 
         if(!driver.error){
             //achou motorista
-            console.log(driver);
-            alert(driver.name);
+            setDriverInfo(driver.dados);
+            setDriverModalVisible(true);
+            
+            handleRequestCancel();
+
+         //   alert(driver.dados.name);
         } else{
             alert(driver.error);
+
         }
     }
 
@@ -180,8 +189,8 @@ const Page = ()=>{
     }
 
     const handleModalClick = (field, item)=>{
-        console.log("field", field);
-        console.log("address: ", item);
+     //   console.log("field", field);
+     //  console.log("address: ", item);
 
         const loc = {
             name:item.address,
@@ -208,6 +217,11 @@ const Page = ()=>{
     return(
         <Container>
             <StatusBar barStyle="dark-content"/>
+            <DriverModal
+                driver={driverInfo}
+                visible={driverModalVisible}
+                visibleAction={setDriverModalVisible}
+            />
             <AddressModal
                 title={modalTitle}
                 visible={modalVisible}

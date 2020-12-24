@@ -57,16 +57,17 @@ export default ()=>({
                 error:''
             };
 
-            json.driver = {
+            json.dados = {
                 id:'1234',
-                name: 'Tony Rogers',
+                name: 'Neymar Jr',
+                avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmKL80rr84lQE2EQ_RY0c-8G1WKP1whhxIjQ&usqp=CAU',
                 stars: 4,
                 carName: 'Honda Civic',
                 carColor:'Branco',
                 carPlate:'AAA-0101'
             };
 
-            json.error = 'Nenhum motorista encontrado';
+           // json.error = 'Nenhum motorista encontrado';
 
             resolve(json);
         }, 3000);
