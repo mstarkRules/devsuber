@@ -13,6 +13,8 @@ import DriverModal from '../../components/DriverModal';
 
 import { 
     Container,
+    MenuArea,
+    MenuImage,
     IntineraryArea,
     IntineraryItem,
     IntineraryLabel,
@@ -34,7 +36,7 @@ import {
 
 } from './styled';
 
-const Page = ()=>{
+const Page = (props)=>{
 
     const map = useRef();
     const api = useDevsUberApi();
@@ -122,7 +124,6 @@ const Page = ()=>{
         setModalVisible(true);
 
         /*
-        
         */
 
     }
@@ -160,7 +161,7 @@ const Page = ()=>{
 
         if(!driver.error){
             //achou motorista
-            setDriverInfo(driver.dados);
+            setDriverInfo(driver.driver);
             setDriverModalVisible(true);
             
             handleRequestCancel();
@@ -214,6 +215,10 @@ const Page = ()=>{
         }
     }
 
+    const handleMenu = ()=>{
+        props.navigation.openDrawer();
+    }
+
     return(
         <Container>
             <StatusBar barStyle="dark-content"/>
@@ -258,6 +263,9 @@ const Page = ()=>{
                 }
 
             </MapView>
+            <MenuArea onPress={handleMenu} underlayColor="transparent">
+                <MenuImage source={require('../../assets/menu.png')}/>
+            </MenuArea>
             <IntineraryArea >
                 <IntineraryItem onPress={handleFromClick} underlayColor="#EEE">
                     <>
