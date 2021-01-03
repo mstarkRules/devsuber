@@ -37,15 +37,12 @@ const Page = (props)=> {
         const res = await api.signin(email, password);
         setLoading(false);
 
-        
-
-      //  console.log(res);
-
         if(res.error){
           alert(res.error);
         } else{
           // guardar o token no reducer
           props.setToken(res.token);
+          props.setName(res.name);
 
           //redirecionar para o home
           props.navigation.dispatch(StackActions.reset({
@@ -71,6 +68,7 @@ const Page = (props)=> {
         } else{
           // guardar o token no reducer
           props.setToken(res.token);
+          props.setName(res.name);
           //mandar para home
           props.navigation.dispatch(StackActions.reset({
               index:0,
@@ -133,7 +131,9 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) =>{
   return{
-    setToken:(token)=>dispatch({type:'SET_TOKEN', payload:{token}})  
+    setToken:(token)=>dispatch({type:'SET_TOKEN', payload:{token}}),
+    //setName:(name)=>dispatch({type:'SET_NAME', payload:{name}})
+    setName:(name)=>dispatch({type:'SET_NAME', payload:{name}})
   };
 }
 

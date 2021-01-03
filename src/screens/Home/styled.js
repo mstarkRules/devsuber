@@ -15,6 +15,7 @@ export const MenuArea = styled.TouchableHighlight`
     align-items:center;
 `;
 
+
 export const MenuImage = styled.Image`
     width: 24px;
     height: 24px;

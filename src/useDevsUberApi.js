@@ -6,9 +6,11 @@ export default ()=>({
             setTimeout(()=>{
                 let json ={
                     error:'',
-                    token:'123'
+                    token:'123',
+                    name:'Lionel Messi'
                 };
 
+                console.log('resposta do useDevs/name: ', json.name)
                 resolve(json);
 
             }, 1000);
@@ -27,6 +29,7 @@ export default ()=>({
                     json.error = 'Email já existe!';
                 } else{
                     json.token = '123';
+                    json.name = name; 
                 }
 
                 resolve(json);
