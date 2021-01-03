@@ -57,7 +57,7 @@ const CustomDrawer = (props)=>{
                 <Header>
                     <UserAvatar />
                     <UserInfo>
-                        <UserName>{props.name}</UserName>
+                        <UserName>Olá, {props.name}</UserName>
                         <LogoutButton onPress={handleLogout} underlayColor="transparent">
                             <LogoutButtonText>Sair</LogoutButtonText>
                         </LogoutButton>
