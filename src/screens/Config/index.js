@@ -13,10 +13,12 @@ import {
     ItemArea,
     ItemTexSmall,
     ItemText,
+    Input,
     ItemTextStrong,
     ItemTextMid,
     ItemTextMidArea,
     TextArea,
+    TextAreaButton,
     ContainerEdit
 } from './styled';
 
@@ -24,8 +26,21 @@ import {
 
 const Page = (props) =>{
 
+    const [visibleInput, setVisibleInput] = useState(false);
+    const [inputText, setInputText] = useState('');
+    const [name, setName] = useState(props.name);
+    const [email, setEmail] = useState(props.email);
+
     const handleMenu = ()=>{
         props.navigation.openDrawer();
+    }
+
+    const handleEdit = ()=>{
+        if(name){
+            props.setName(name);
+        } else{
+            alert('Digite um nome, brodi');
+        }
     }
 
     return(
@@ -37,7 +52,7 @@ const Page = (props) =>{
                     <ItemTextStrong>{props.name}</ItemTextStrong>
                 </ItemArea>
                 <ItemArea>
-                    <ItemText>markstm10@gmail.com</ItemText>
+                    <ItemText>{props.email}</ItemText>
                 </ItemArea>
                 
             </InfoArea>
@@ -46,13 +61,19 @@ const Page = (props) =>{
                     <ItemTextMid>Informações Básicas</ItemTextMid>
                 </ItemTextMidArea>
                 <TextArea>
-                    <ItemTexSmall>NOME</ItemTexSmall>
-                    <ItemTextMid>{props.name}</ItemTextMid>
+                    <>
+                        <ItemTexSmall>NOME</ItemTexSmall>
+                        <Input value={name} placeholder='name' onChangeText={t=>setName(t)} onEndEditing={handleEdit}/>
+                    </>
+                    
                 </TextArea>
-                <TextArea>
-                    <ItemTexSmall>EMAIL</ItemTexSmall>
-                    <ItemTextMid>markstm10@gmail.com</ItemTextMid>
-                </TextArea>
+                <TextAreaButton>
+                    <>
+                        <ItemTexSmall>EMAIL</ItemTexSmall>
+                        <ItemTextMid>{email}</ItemTextMid>
+                    </>
+                    
+                </TextAreaButton>
                 
             </ContainerEdit>
             

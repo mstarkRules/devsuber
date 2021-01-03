@@ -7,7 +7,8 @@ export default ()=>({
                 let json ={
                     error:'',
                     token:'123',
-                    name:'Lionel Messi'
+                    name:'Lionel Messi',
+                    email: email
                 };
 
                 console.log('resposta do useDevs/name: ', json.name)
@@ -30,6 +31,7 @@ export default ()=>({
                 } else{
                     json.token = '123';
                     json.name = name; 
+                    json.email = email;
                 }
 
                 resolve(json);

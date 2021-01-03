@@ -43,6 +43,7 @@ const Page = (props)=> {
           // guardar o token no reducer
           props.setToken(res.token);
           props.setName(res.name);
+          props.setEmail(res.email);
 
           //redirecionar para o home
           props.navigation.dispatch(StackActions.reset({
@@ -69,6 +70,7 @@ const Page = (props)=> {
           // guardar o token no reducer
           props.setToken(res.token);
           props.setName(res.name);
+          props.setEmail(res.email);
           //mandar para home
           props.navigation.dispatch(StackActions.reset({
               index:0,
@@ -133,7 +135,8 @@ const mapDispatchToProps = (dispatch) =>{
   return{
     setToken:(token)=>dispatch({type:'SET_TOKEN', payload:{token}}),
     //setName:(name)=>dispatch({type:'SET_NAME', payload:{name}})
-    setName:(name)=>dispatch({type:'SET_NAME', payload:{name}})
+    setName:(name)=>dispatch({type:'SET_NAME', payload:{name}}),
+    setEmail:(email)=>dispatch({type:'SET_EMAIL', payload:{email}})
   };
 }
 

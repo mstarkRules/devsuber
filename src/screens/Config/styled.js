@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.ScrollView`
     flex:1;
 `;
 
@@ -8,6 +8,7 @@ export const InfoArea = styled.View`
     flex:1;
     justify-content: center;
     align-items: center;
+    margin-bottom:30px;
 `;
 
 export const Avatar = styled.Image`
@@ -30,14 +31,22 @@ export const ItemText = styled.Text`
     font-size:16px;
 `;
 
+export const ItemTextMid = styled.Text`
+    font-size:18px;
+    
+`;
+
+export const Input = styled.TextInput`
+    padding:0;
+    font-size:18px;
+    
+`;
+
 export const ItemTextStrong = styled.Text`
     font-size:26px;
     font-weight:bold;
 `;
 
-export const ItemTextMid = styled.Text`
-    font-size:18px;
-`;
  export const ItemTextMidArea = styled.View`
     height:70px;
     border-bottom-color:#AAA;
@@ -46,12 +55,18 @@ export const ItemTextMid = styled.Text`
 
  export const TextArea = styled.View`
     height: 70px;
-    border-bottom-color:#AAA;
     border-top-color:#AAA;
-    border-bottom-width:0.5px;
+    border-top-width:0.5px;
     justify-content:center;
     padding-bottom:2px;
+ `;
 
+ export const TextAreaButton = styled.TouchableOpacity`
+    height: 70px;
+    border-top-color:#AAA;
+    border-top-width:0.5px;
+    justify-content:center;
+    padding-bottom:2px;
  `;
 
 export const ContainerEdit = styled.View`
