@@ -272,7 +272,6 @@ const Page = (props)=>{
                         <IntineraryLabel>
                             <IntineraryPoint color="#0000FF"/>
                             <IntineraryTitle>Origem</IntineraryTitle>
-
                         </IntineraryLabel>
                         {fromLoc.name &&
                             <IntineraryValue>{fromLoc.name}</IntineraryValue>
@@ -288,6 +287,7 @@ const Page = (props)=>{
                         <IntineraryLabel>
                             <IntineraryPoint color="#00FF00"/>
                             <IntineraryTitle>Destino</IntineraryTitle>
+                            
 
                         </IntineraryLabel>
                         {toLoc.name &&
