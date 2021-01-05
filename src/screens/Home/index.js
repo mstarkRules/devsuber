@@ -10,6 +10,7 @@ import {MapsAPI} from '../../config';
 import useDevsUberApi from '../../useDevsUberApi';
 import AddressModal from '../../components/AdressModal';
 import DriverModal from '../../components/DriverModal';
+import LocationButton from '../../components/LocationButton';
 
 import { 
     Container,
@@ -219,6 +220,11 @@ const Page = (props)=>{
         props.navigation.openDrawer();
     }
 
+    const handleLoc = ()=>{
+        getMyCurrentPosition();
+        setToLoc('');
+    }
+
     return(
         <Container>
             <StatusBar barStyle="dark-content"/>
@@ -266,6 +272,9 @@ const Page = (props)=>{
             <MenuArea onPress={handleMenu} underlayColor="transparent">
                 <MenuImage source={require('../../assets/menu.png')}/>
             </MenuArea>
+            <LocationButton
+                handleLocAction={handleLoc}
+            />
             <IntineraryArea >
                 <IntineraryItem onPress={handleFromClick} underlayColor="#EEE">
                     <>
