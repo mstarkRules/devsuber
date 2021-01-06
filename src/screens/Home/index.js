@@ -5,7 +5,9 @@ import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
 import MapViewDirections from 'react-native-maps-directions';
 import {MapsAPI} from '../../config';
+import { connect } from 'react-redux';
 
+import * as TripActions from '../../actions/TripActions';
 
 import useDevsUberApi from '../../useDevsUberApi';
 import AddressModal from '../../components/AdressModal';
@@ -172,6 +174,34 @@ const Page = (props)=>{
             alert(driver.error);
 
         }
+
+        console.log('Resultado from: ',fromLoc);
+        console.log('Resultado to: ', toLoc);
+
+        addTrip(driver);
+    }
+
+    const addTrip = (driver)=>{
+        let item = {
+            fromLoc: fromLoc.name,
+            toLoc: toLoc.name,
+            price: requestPrice,
+            driver:{
+                name:driver.driver.name,
+                avatar:driver.driver.avatar,
+                number:'000001',
+                stars:driver.driver.stars
+            },
+            distance: requestDistance,
+            duration: requestTime,
+            myReview: 0
+        }
+
+        console.log ('eis os benditos dados: ',item);
+        console.log('o que tem em driver: ',driver.driver.name);
+
+        props.addTrip(item);
+        console.log('aqui tem trips: ', props.trips)
     }
 
     const handleRequestCancel =()=>{
@@ -187,7 +217,6 @@ const Page = (props)=>{
         const cam = await map.current.getCamera();
         cam.altitude = 0;
         setMapLoc(cam);
-        
     }
 
     const handleModalClick = (field, item)=>{
@@ -347,5 +376,17 @@ const Page = (props)=>{
     );
 }
 
+const mapStateToProps=(state)=>{
+    return{
+        trips: state.tripReducer.trips
+    };
+}
 
-export default Page;
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        addTrip:(trip)=>dispatch(TripActions.addTrip(trip))
+    }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Page);

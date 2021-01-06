@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { FlatList } from 'react-native-gesture-handler';
 
 import { connect } from 'react-redux';
 
@@ -16,48 +15,18 @@ import {
 
 
 const Page = (props)=>{
-    const [trips, setTrips] = useState([
-        {   
-            id: '234',
-            from: 'santarem',
-            to: 'alter do chão',
-            price: '50' 
-        },
-        {
-            id:'123',
-            from: 'Diamantino',
-            to: 'Centro',
-            price: '40'
-        },
-        {
-            id:'34',
-            from: 'Diamantino',
-            to: 'Centro',
-            price: '40'
-        },
-        {
-            id:'56',
-            from: 'Diamantino',
-            to: 'Centro',
-            price: '40'
-        },
-        {
-            id:'24',
-            from: 'Diamantino',
-            to: 'Centro',
-            price: '40'
-        },
-        {
-            id:'32',
-            from: 'Diamantino',
-            to: 'Centro',
-            price: '40'
-        }
-    ]);
+    const [trips, setTrips] = useState([]);
 
     useEffect(()=>{
-        console.log(trips[0].from)
-    },[]);
+        preencherTrips();
+        console.log('tem em trips: ',trips)
+    },[props.trips]);
+
+    const preencherTrips=()=>{
+        let novo = [...props.trips];
+
+        setTrips(novo);
+    }
 
     const handleMenu = ()=>{
         props.navigation.openDrawer();
@@ -69,17 +38,26 @@ const Page = (props)=>{
                 <HeaderText>Histórico</HeaderText>
             </Header>
             <MenuDrawer handleMenuAction={handleMenu}/>             
-            <HistoricoLista
-                data={trips}
-                renderItem={({item})=> <HistoricoItem
-                    data={item}
-                />}
-            />
+            {trips &&
+                <HistoricoLista
+                    data={trips}
+                    renderItem={({item})=> <HistoricoItem
+                        data={item}
+                    />}
+                />
+            }
+            
         </Container>
         
         
     );
 }
 
+const mapStateToProps = (state)=>{
+    return{
+        trips: state.tripReducer.trips
+    };
+}
 
-export default Page;
+
+export default connect(mapStateToProps)(Page);
