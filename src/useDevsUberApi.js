@@ -75,16 +75,20 @@ export default ()=>({
            // json.error = 'Nenhum motorista encontrado';
 
             resolve(json);
-        }, 3000);
+        }, 2000);
        }); 
     },
 
     setRating:(rating)=>{
+        console.log('rate da api: ',rating);
         return new Promise((resolve, reject)=>{
             setTimeout(()=>{
                 let json = {
-                    error:''
+                    error:'123',
+                    rate: rating
                 };
+
+                //json.rate = rating;
 
                 resolve(json);
             }, 1000);

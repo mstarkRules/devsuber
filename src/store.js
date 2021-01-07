@@ -7,7 +7,7 @@ import Reducers from './reducers/index';
 const persistedReducer = persistReducer({
     key: 'root',
     storage:AsyncStorage,
-    whitelist: ['userReducer']
+    whitelist: ['userReducer', 'tripReducer']
 }, Reducers);
 
 const store = createStore(persistedReducer);

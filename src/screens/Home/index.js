@@ -6,6 +6,7 @@ import Geocoder from 'react-native-geocoding';
 import MapViewDirections from 'react-native-maps-directions';
 import {MapsAPI} from '../../config';
 import { connect } from 'react-redux';
+import uuid from 'uuid';
 
 import * as TripActions from '../../actions/TripActions';
 
@@ -40,6 +41,7 @@ import {
 } from './styled';
 
 const Page = (props)=>{
+
 
     const map = useRef();
     const api = useDevsUberApi();
@@ -181,8 +183,10 @@ const Page = (props)=>{
         addTrip(driver);
     }
 
-    const addTrip = (driver)=>{
+    const addTrip = async (driver)=>{
+        
         let item = {
+            id: uuid(),
             fromLoc: fromLoc.name,
             toLoc: toLoc.name,
             price: requestPrice,
