@@ -17,6 +17,7 @@ export const HeaderText  = styled.Text`
 `;
 
 
+
 export const HistoricoLista = styled.FlatList`
     flex:1;
 `;

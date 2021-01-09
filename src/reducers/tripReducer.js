@@ -7,7 +7,7 @@ export default (state = initialState, action)=>{
 
     switch(action.type){
         case 'ADD_TRIP':
-            trips.push(action.payload.trip);
+            trips.unshift(action.payload.trip);
             return{...state, trips}
             break;
         case 'DEL_TRIP':

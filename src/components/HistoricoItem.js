@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 const Container = styled.TouchableOpacity`
-    flex:1;
     margin:15px;
     padding:10px;
     justify-content: center;
