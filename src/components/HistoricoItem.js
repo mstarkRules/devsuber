@@ -37,6 +37,7 @@ const IntineraryPoint = styled.View`
 
 const IntineraryLabelText = styled.Text`
     color:#AAA;
+    font-size: 10px;
 `;
 
 const TitleText = styled.Text`
