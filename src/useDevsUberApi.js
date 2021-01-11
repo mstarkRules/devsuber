@@ -42,6 +42,7 @@ export default ()=>({
 
 
     getRequestPrice:(distance) =>{
+        console.log('olha a distancia: ', distance);
         return new Promise((resolve, reject)=>{
             setTimeout(()=>{
                 let json ={
@@ -80,15 +81,14 @@ export default ()=>({
     },
 
     setRating:(rating)=>{
-        console.log('rate da api: ',rating);
+        console.log('rate novo da api: ',rating);
         return new Promise((resolve, reject)=>{
             setTimeout(()=>{
                 let json = {
-                    error:'123',
-                    rate: rating
+                    error:''
                 };
 
-                //json.rate = rating;
+                json.rate = rating;
 
                 resolve(json);
             }, 1000);

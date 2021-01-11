@@ -69,7 +69,7 @@ const Page = (props)=>{
     const [loading, setLoading] = useState(false);
     const [driverInfo, setDriverInfo] = useState({});
     const [driverModalVisible, setDriverModalVisible] = useState(false);
-
+    const [trip, setTrip] = useState({});
 
     useEffect(()=>{
         Geocoder.init(MapsAPI, {language:'pt-br'});
@@ -87,6 +87,21 @@ const Page = (props)=>{
             setMapLoc(fromLoc);
         }
     },[fromLoc]);
+
+
+    const getRateAndFinish = (rate)=>{
+
+        console.log('trip antes: ', trip);
+        let editedTrip = trip;
+
+        editedTrip.myReview = rate;
+
+        setTrip(editedTrip);
+
+        props.addTrip(editedTrip);
+
+        console.log('trip depois: ',trip);
+    }
 
     const getMyCurrentPosition = ()=>{
         Geolocation.getCurrentPosition(async (info)=>{
@@ -191,6 +206,7 @@ const Page = (props)=>{
             toLoc: toLoc.name,
             price: requestPrice,
             driver:{
+                id: driver.driver.id,
                 name:driver.driver.name,
                 avatar:driver.driver.avatar,
                 number:'000001',
@@ -201,11 +217,13 @@ const Page = (props)=>{
             myReview: 0
         }
 
+
         console.log ('eis os benditos dados: ',item);
+
         console.log('o que tem em driver: ',driver.driver.name);
 
-        props.addTrip(item);
-        console.log('aqui tem trips: ', props.trips)
+        setTrip(item);
+        console.log('aqui tem trips novo: ', trip)
     }
 
     const handleRequestCancel =()=>{
@@ -265,6 +283,7 @@ const Page = (props)=>{
                 driver={driverInfo}
                 visible={driverModalVisible}
                 visibleAction={setDriverModalVisible}
+                handleRatingAction={getRateAndFinish}
             />
             <AddressModal
                 title={modalTitle}

@@ -100,8 +100,9 @@ export default (props)=>{
     const handleRating = async(rating)=>{
         await api.setRating(rating);
 
-        console.log('Rate: ',rating)
+        console.log('Rate: ',rating);
         props.visibleAction(false);
+        props.handleRatingAction(rating);
     }
 
     return (
